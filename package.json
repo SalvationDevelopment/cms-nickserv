@@ -1,0 +1,23 @@
+{
+    "name": "duelingnetwork-js-server",
+    "description": "Salvation Development IRC Wordpress Login Interface",
+    "main": "nickserv.js",
+    "version": "0.00.01",
+    "keywords": [
+        "irc",
+        "service",
+        "nickserv",
+        "wordpress",
+        "login"
+    ],
+
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SalvationDevelopment/cms-nickserv.git"
+    },
+
+    "dependencies": {
+        "irc": "*",
+        "request":"*"
+    }
+}

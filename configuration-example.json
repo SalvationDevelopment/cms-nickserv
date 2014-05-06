@@ -1,0 +1,6 @@
+{
+    "redirect": "http://example.com/nickserv.php=true",
+    "loginURL": "http://example.com/wp-login.php",
+    "ircURI": "example.com",
+    "botname": "SecurityServ"
+}

@@ -1,0 +1,6 @@
+{
+    "redirect": "http://salvationdevelopment.com/nickserv.php=true",
+    "loginURL": "http://salvationdevelopment.com/wp-login.php",
+    "ircURI": "salvationdevelopment.com",
+    "botname": "SecurityServ"
+}
