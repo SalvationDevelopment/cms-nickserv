@@ -217,4 +217,5 @@ pip-log.txt
 
 
 # Private
-*/configuration.json
+configuration.json
+node_modules/*
