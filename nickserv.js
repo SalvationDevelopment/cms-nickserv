@@ -4,13 +4,14 @@ var configuration = require('./configuration.json') || require('configuration-ex
 var request = require('request');
 var irc = require('irc');
 var currentUsers = {};
+var ircbot;
 
 function userJoinsServer(username) {
     currentUsers[username] = false;
     //pm user to login
     setTimeout(function (username) {
         if (!currentUsers[username]) {
-            ///KILL nick reason
+            ircbot.send('kill', username, 'did not login in time');
             delete currentUsers[username];
         }
     }, 60000);
@@ -21,11 +22,10 @@ function attemptLogin(username, password) {
         request.post(configuration.loginURL, function loginResponse(error, httpResponse, body) {
             if (httpResponse.statusCode == 304) {
                 currentUsers[username] = true;
-                //tell user they are logged in
+                ircbot.say(username, 'You are now logged in, Welcome.');
                 //set user +r
-                ///kidnap user
+                ircbot.send('sajoin', username, '#lobby');
             }
-            console.log(httpResponse.statusCode, 'did it!', httpResponse.headers);
 
         }).form({
             log: username,
@@ -41,7 +41,7 @@ function attemptLogin(username, password) {
 }
 
 function loadIRC() {
-    var ircbot = new irc.Client(configuration.ircURI, configuration.botname, {
+    ircbot = new irc.Client(configuration.ircURI, configuration.botname, {
         channels: ['#ircops'],
         debug: true
     });
@@ -54,6 +54,13 @@ function loadIRC() {
 
             }
             console.log(message.args[5]);
+        }
+    });
+    ircbot.addListener('pm', function (nick, text, message) {
+        ///msg servicebot id password
+        var messageParts = message.split(' ');
+        if (message[0] === 'id' && currentUsers.hasOwnProperty(nick)) {
+            attemptLogin(nick, message[1]);
         }
     });
 }
